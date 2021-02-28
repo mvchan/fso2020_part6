@@ -8,6 +8,7 @@ const counterReducer = (state = initialState, action) => {
   console.log(action)
   switch (action.type) {
     case 'GOOD':
+      //spread operator will express all elements, which can be overridden on an individual basis
       return { ...state, good:state.good+1}
     case 'OK':
       return { ...state, ok:state.ok+1}
