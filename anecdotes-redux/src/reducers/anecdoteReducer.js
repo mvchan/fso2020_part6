@@ -19,11 +19,46 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
+// createStore uses this as callback
+// dispatch command will call this against the store
 const reducer = (state = initialState, action) => {
   console.log('state now: ', state)
+  console.log('state length: ', state.length)
   console.log('action', action)
 
-  return state
+  switch (action.type) {
+    case 'VOTE':
+      state[state.findIndex(a => a.id === action.data.id)].votes++
+      return state.concat()
+    case 'CREATE':
+      return state.concat({
+        content: action.data.content,
+        id: action.data.id,
+        votes: action.data.votes
+      })
+    default: 
+      return state
+  }
+}
+
+//this can be used as parameter for dispatch
+export const increaseVote = id => {
+  return {
+    type: 'VOTE',
+    data: { id }
+  }
+}
+
+//this can be used as parameter for dispatch
+export const createEntry = anecdote => {
+  return {
+    type: 'CREATE',
+    data: {
+      content: anecdote,
+      id: getId(),
+      votes: 0
+    }
+  }
 }
 
 export default reducer
