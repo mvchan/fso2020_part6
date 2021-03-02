@@ -23,7 +23,6 @@ const initialState = anecdotesAtStart.map(asObject)
 // dispatch command will call this against the store
 const reducer = (state = initialState, action) => {
   console.log('state now: ', state)
-  console.log('state length: ', state.length)
   console.log('action', action)
 
   switch (action.type) {
