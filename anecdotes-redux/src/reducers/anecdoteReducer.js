@@ -21,7 +21,7 @@ const initialState = anecdotesAtStart.map(asObject)
 
 // createStore uses this as callback
 // dispatch command will call this against the store
-const reducer = (state = initialState, action) => {
+const reducer = (state = [], action) => {
   console.log('state now: ', state)
   console.log('action', action)
 
@@ -35,8 +35,17 @@ const reducer = (state = initialState, action) => {
         id: action.data.id,
         votes: action.data.votes
       })
+    case 'INIT_ANECDOTES':
+      return action.data
     default: 
       return state
+  }
+}
+
+export const initializeAnecdotes = (anecdotes) => {
+  return {
+    type: 'INIT_ANECDOTES',
+    data: anecdotes,
   }
 }
 
@@ -49,14 +58,10 @@ export const increaseVote = id => {
 }
 
 //this can be used as parameter for dispatch
-export const createEntry = anecdote => {
+export const createEntry = data => {
   return {
     type: 'CREATE',
-    data: {
-      content: anecdote,
-      id: getId(),
-      votes: 0
-    }
+    data
   }
 }
 
