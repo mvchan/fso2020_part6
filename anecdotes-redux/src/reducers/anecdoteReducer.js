@@ -1,3 +1,5 @@
+/* THESE ARE HELPER FUNCTIONS THAT SHOULD ONLY BE USED AS A SUBSTITUTE FOR A LACK OF A BACKEND
+
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -18,6 +20,7 @@ const asObject = (anecdote) => {
 }
 
 const initialState = anecdotesAtStart.map(asObject)
+*/
 
 // createStore uses this as callback
 // dispatch command will call this against the store
