@@ -59,11 +59,13 @@ export const initializeAnecdotes = () => {
   }
 }
 
-//this can be used as parameter for dispatch
-export const increaseVote = id => {
-  return {
-    type: 'VOTE',
-    data: { id }
+export const increaseVote = anecdote => {
+  return async dispatch => {
+    const updatedAnecdote = await anecdoteService.updateAnecdote({...anecdote, votes: anecdote.votes+1})
+    dispatch({
+      type: 'VOTE',
+      data: updatedAnecdote
+    })
   }
 }
 
