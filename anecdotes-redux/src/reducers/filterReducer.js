@@ -1,8 +1,6 @@
-const initialState = ''
-
 // createStore uses this as callback
 // dispatch command will call this against the store
-const reducer = (state = initialState, action) => {
+const reducer = (state = '', action) => {
 
     switch(action.type) {
         case 'SET':
