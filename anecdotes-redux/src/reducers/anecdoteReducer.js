@@ -1,3 +1,5 @@
+import anecdoteService from '../services/anecdotes'
+
 /* THESE ARE HELPER FUNCTIONS THAT SHOULD ONLY BE USED AS A SUBSTITUTE FOR A LACK OF A BACKEND
 
 const anecdotesAtStart = [
@@ -45,10 +47,15 @@ const reducer = (state = [], action) => {
   }
 }
 
-export const initializeAnecdotes = (anecdotes) => {
-  return {
-    type: 'INIT_ANECDOTES',
-    data: anecdotes,
+//redux-thunk allows inner function to receive dispatch and getState as parameters
+//first parameter will be the dispatch method
+export const initializeAnecdotes = () => {
+  return async dispatch => {
+    const anecdotes = await anecdoteService.getAll()
+    dispatch({
+      type: 'INIT_ANECDOTES',
+      data: anecdotes,
+    })
   }
 }
 
@@ -60,11 +67,13 @@ export const increaseVote = id => {
   }
 }
 
-//this can be used as parameter for dispatch
-export const createEntry = data => {
-  return {
-    type: 'CREATE',
-    data
+export const createEntry = anecdoteText => {
+  return async dispatch => {
+    const newAnecdote = await anecdoteService.createNew(anecdoteText)
+    dispatch({
+      type: 'CREATE',
+      data: newAnecdote
+    })
   }
 }
 
