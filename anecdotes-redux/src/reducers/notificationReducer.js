@@ -1,3 +1,5 @@
+let timeoutID
+
 // createStore uses this as callback
 // dispatch command will call this against the store
 const reducer = (state = '', action) => {
@@ -15,24 +17,16 @@ const reducer = (state = '', action) => {
             return state
     }
 }
-/*
-//this can be used as parameter for dispatch
-export const enableNotification = (message) => {
-    return {
-        type: 'ON',
-        message: message
-    }
-}
-*/
 
 //this can be used as parameter for dispatch
 export const setNotification = (message, timer) => {
+    clearTimeout(timeoutID)
     return async dispatch => {
         await dispatch({
             type: 'ON',
             message: message
         })
-        setTimeout(() => {dispatch(disableNotification())}, timer * 1000)
+        timeoutID = setTimeout(() => {dispatch(disableNotification())}, timer * 1000)
     }
 }
 
