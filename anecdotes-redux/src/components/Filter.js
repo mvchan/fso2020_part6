@@ -1,13 +1,17 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+//HOOK-API APPROACH FOR USING STORES
+//import { useDispatch } from 'react-redux'
 import { setFilter } from '../reducers/filterReducer'
+import { connect } from 'react-redux'
 
-const Filter = () => {
-    const dispatch = useDispatch()
+const Filter = (props) => {
+    //HOOK-API APPROACH FOR USING STORES
+    //const dispatch = useDispatch()
 
     const handleChange = (event) => {
         console.log(event.target.value)
-        dispatch(setFilter((event.target.value)))
+        //dispatch(setFilter((event.target.value)))
+        props.setFilter(event.target.value)
     }
 
     const style = {
@@ -21,4 +25,10 @@ const Filter = () => {
     )
 }
 
-export default Filter
+const mapDispatchToProps = {  
+    setFilter
+}
+
+//first parameter is state, which can be null if unused
+const ConnectedFilter = connect(null, mapDispatchToProps)(Filter)
+export default ConnectedFilter
